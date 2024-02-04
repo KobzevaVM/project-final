@@ -50,8 +50,9 @@
 7. Добавить новый функционал: добавления тегов к задаче (REST API + реализация на сервисе). Фронт делать необязательно. Таблица task_tag уже создана.
 
     Добавлен функционал в ```/src/main/java/com/javarush/jira/bugtracking/task/TaskService.java```. 
-Также для проверки работы был добавлен функционал в ```/src/main/java/com/javarush/jira/bugtracking/task/TaskController.java``` для проверки через **Swagger API** ```POST /api/tasks/{id}/tags```. 
-Также добавлен тест в ```src/test/java/com/javarush/jira/bugtracking/task/TaskControllerTest.java```
+    Также для проверки работы был добавлен функционал в ```/src/main/java/com/javarush/jira/bugtracking/task/TaskController.java``` для проверки через **Swagger API** ```POST /api/tasks/{id}/tags```. 
+    Также добавлен тест в ```src/test/java/com/javarush/jira/bugtracking/task/TaskControllerTest.java```
+
 8. Добавить подсчет времени сколько задача находилась в работе и тестировании. Написать 2 метода на уровне сервиса, которые параметром принимают задачу и возвращают затраченное время:
     - Сколько задача находилась в работе (ready_for_review минус in_progress ).
     - Сколько задача находилась на тестировании (done минус ready_for_review).
@@ -62,13 +63,16 @@
         - время окончания разработки - ready_for_review
         - время конца тестирования - done
 
-Основной функционал добавлен в ```src/main/java/com/javarush/jira/bugtracking/task/ActivityService.java```.
+    Основной функционал добавлен в ```src/main/java/com/javarush/jira/bugtracking/task/ActivityService.java```.
 
-Для тестирования был добавлен функционал в ```src/main/java/com/javarush/jira/bugtracking/task/TaskController.java``` через **Swagger API** ```GET /{id}/activities```. 
+    Для тестирования был добавлен функционал в ```src/main/java/com/javarush/jira/bugtracking/task/TaskController.java``` через **Swagger API** ```GET /{id}/activities```. 
+
 9. Написать Dockerfile для основного сервера
+
 10. Написать docker-compose файл для запуска контейнера сервера вместе с БД и nginx. Для nginx используй конфиг-файл config/nginx.conf. При необходимости файл конфига можно редактировать. 
 
     Попытки создать, но под сомнение сделанные шаги, т.к. БД была пустой при запуске контейнера. Т.е. авторизация не проходила, т.к. таблица users была пустой.
-11. Добавить локализацию минимум на двух языках для шаблонов писем (mails) и стартовой страницы index.html.
+    Для сборки команда ```docker-compose build```, для запуска ```docker-compose up -d``` из папки с файлом ```docker-compose```. Предварительно проект собрать через **maven**, чтобы была папка *targer*.
+12. Добавить локализацию минимум на двух языках для шаблонов писем (mails) и стартовой страницы index.html.
 
     Добавлены русский и английский язык для mails/index/header.
