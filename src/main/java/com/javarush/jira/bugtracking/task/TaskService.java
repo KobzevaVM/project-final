@@ -15,12 +15,14 @@ import com.javarush.jira.common.util.Util;
 import com.javarush.jira.login.AuthUser;
 import com.javarush.jira.ref.RefType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static com.javarush.jira.bugtracking.ObjectType.TASK;
 import static com.javarush.jira.bugtracking.task.TaskUtil.fillExtraFields;
@@ -140,4 +142,16 @@ public class TaskService {
             throw new DataConflictException(String.format(assign ? CANNOT_ASSIGN : CANNOT_UN_ASSIGN, userType, task.getStatusCode()));
         }
     }
+
+    //TODO добавления тегов к задаче (REST API + реализация на сервисе).
+    // Добавляется в таблицу task_tag, на фронте не отображается.
+    // Тестирование через Swagger API
+    // POST /api/tasks/{id}/tags
+    @Transactional
+    public void addTagsToTask(Long taskId, Set<String> setTags) {
+        Task task = handler.getRepository().getExisted(taskId);
+        task.getTags().addAll(setTags);
+        handler.getRepository().save(task);
+    }
+
 }

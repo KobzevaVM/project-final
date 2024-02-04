@@ -325,3 +325,23 @@ values (6, 1, '2023-05-15 09:05:10', null, 'Data', null, 3, 'epic', 'in_progress
        (5, 118, '2023-05-16 11:10:10', null, 'UI tab of tasks', null, null, null, null, 'high'),
        (11, 118, '2023-05-16 12:30:10', null, 'UI tab of tasks', null, 2, null, null, null);
 
+insert into activity(author_id, task_id, updated, status_code)
+values
+    (4, 94, TO_TIMESTAMP('2024-01-01 06:00:00.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'in_progress'),
+    (4, 94, TO_TIMESTAMP('2024-01-01 06:31:00.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'ready_for_review'),
+    (4, 94, TO_TIMESTAMP('2024-01-01 06:43:00.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'in_progress'),
+    (4, 94, TO_TIMESTAMP('2024-01-01 06:45:00.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'ready_for_review'),
+    (4, 94, TO_TIMESTAMP('2024-01-01 06:53:00.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'review'),
+    (4, 94, TO_TIMESTAMP('2024-01-01 07:00:00.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'ready_for_test'),
+    (4, 94, TO_TIMESTAMP('2024-01-01 07:10:00.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'test'),
+    (4, 94, TO_TIMESTAMP('2024-01-01 07:30:00.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'done');
+
+insert into user_belong(object_id, object_type, user_id, user_type_code, startpoint, endpoint)
+values
+    (94, 2, 5, 'task_developer', TO_TIMESTAMP('2024-01-01 06:30:00.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), null),
+    (94, 2, 5, 'task_reviewer', TO_TIMESTAMP('2024-01-01 06:53:01.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), null),
+    (94, 2, 5, 'task_tester', TO_TIMESTAMP('2024-01-01 07:10:01.000000000', 'YYYY-MM-DD HH24:MI:SS.FF'), null);
+
+update task
+set status_code = 'done'
+where id = 94;

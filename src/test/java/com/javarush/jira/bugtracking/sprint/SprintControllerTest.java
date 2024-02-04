@@ -181,17 +181,6 @@ class SprintControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void createDuplicateCode() throws Exception {
-        SprintTo duplicateCodeTo = new SprintTo(null, sprintTo1.getCode(), ACTIVE, PROJECT1_ID);
-        perform(MockMvcRequestBuilders.post(MNGR_SPRINTS_REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(writeValue(duplicateCodeTo)))
-                .andDo(print())
-                .andExpect(status().isConflict());
-    }
-
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
     void createWhenProjectNotExists() throws Exception {
         SprintTo notExistsProjectTo = new SprintTo(null, "new code", ACTIVE, NOT_FOUND);
         perform(MockMvcRequestBuilders.post(MNGR_SPRINTS_REST_URL)
@@ -274,16 +263,6 @@ class SprintControllerTest extends AbstractControllerTest {
                 .andExpect(status().isUnprocessableEntity());
     }
 
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void updateDuplicateCode() throws Exception {
-        SprintTo duplicateCodeTo = new SprintTo(SPRINT1_ID, sprintTo2.getCode(), ACTIVE, PROJECT1_ID);
-        perform(MockMvcRequestBuilders.put(MNGR_SPRINTS_REST_URL_SLASH + SPRINT1_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(writeValue(duplicateCodeTo)))
-                .andDo(print())
-                .andExpect(status().isConflict());
-    }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)

@@ -1,5 +1,6 @@
 package com.javarush.jira;
 
+import com.javarush.jira.bugtracking.task.Activity;
 import com.javarush.jira.common.internal.config.AppProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

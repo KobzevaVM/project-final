@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.javarush.jira.common.BaseHandler.createdResponse;
 
@@ -155,5 +157,24 @@ public class TaskController {
         public TaskTreeNode(TaskTo taskTo) {
             this(taskTo, new LinkedList<>());
         }
+    }
+
+    //TODO добавления тегов к задаче (REST API + реализация на сервисе).
+    // Добавляется в таблицу task_tag, на фронте не отображается.
+    // Тестирование через Swagger API
+    // POST /api/tasks/{id}/tags
+    @PostMapping("/{id}/tags")
+    public String addTaskTag(@PathVariable("id") long taskId, @RequestBody String[] tags) {
+        Set<String> setTags = Set.of(tags);
+        taskService.addTagsToTask(taskId, setTags);
+        return "redirect:/ui/tasks/" + taskId;
+    }
+
+    // TODO 8 Добавить подсчет времени сколько задача находилась в работе и тестировании.
+    //  Для тестирования через get запрос на сервер
+    @GetMapping("/{id}/activities")
+    public void durationActivity(@PathVariable("id") long taskId) {
+         System.out.println("Время затраченное на работу: " + activityService.getTaskInProgressDuration(taskId));
+         System.out.println("Время затраченное на тестирование: " + activityService.getTaskInTestingDuration(taskId));
     }
 }
